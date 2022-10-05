@@ -116,6 +116,17 @@
                 });
             @endif
 
+            @if (config('twill.enabled.video-library'))
+                window['{{ config('twill.js_namespace') }}'].STORE.medias.types.push({
+                    value: 'video',
+                    text: 'Videos',
+                    total: {{ \A17\Twill\Models\File::where()->count() }},
+                    endpoint: '{{ route('admin.video-library.videos.index') }}',
+                    tagsEndpoint: '{{ route('admin.video-library.videos.tags') }}',
+                    uploaderConfig: {!! json_encode($videosUploaderConfig) !!}
+                });
+            @endif
+
 
             @yield('initialStore')
 

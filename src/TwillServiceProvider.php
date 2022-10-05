@@ -25,6 +25,7 @@ use A17\Twill\Http\ViewComposers\CurrentUser;
 use A17\Twill\Http\ViewComposers\FilesUploaderConfig;
 use A17\Twill\Http\ViewComposers\Localization;
 use A17\Twill\Http\ViewComposers\MediasUploaderConfig;
+use A17\Twill\Http\ViewComposers\VideosUploaderConfig;
 use A17\Twill\Models\Block;
 use A17\Twill\Models\File;
 use A17\Twill\Models\Media;
@@ -473,6 +474,10 @@ class TwillServiceProvider extends ServiceProvider
 
         if (config('twill.enabled.file-library')) {
             View::composer('twill::layouts.main', FilesUploaderConfig::class);
+        }
+
+        if (config('twill.enabled.video-library')) {
+            View::composer('twill::layouts.main', VideosUploaderConfig::class);
         }
 
         View::composer('twill::partials.navigation.*', ActiveNavigation::class);

@@ -31,6 +31,18 @@ if (config('twill.enabled.file-library')) {
     });
 }
 
+if (config('twill.enabled.video-library')) {
+    Route::group(['prefix' => 'video-library', 'as' => 'video-library.'], function () {
+        Route::post('sign-s3-upload', ['as' => 'sign-s3-upload', 'uses' => 'VideoLibraryController@signS3Upload']);
+        Route::get('sign-azure-upload', ['as' => 'sign-azure-upload', 'uses' => 'VideoLibraryController@signAzureUpload']);
+        Route::put('videos/single-update', ['as' => 'videos.single-update', 'uses' => 'VideoLibraryController@singleUpdate']);
+        Route::put('videos/bulk-update', ['as' => 'videos.bulk-update', 'uses' => 'VideoLibraryController@bulkUpdate']);
+        Route::put('videos/bulk-delete', ['as' => 'videos.bulk-delete', 'uses' => 'VideoLibraryController@bulkDelete']);
+        Route::get('videos/tags', ['as' => 'videos.tags', 'uses' => 'VideoLibraryController@tags']);
+        Route::resource('videos', 'VideoLibraryController', ['only' => ['index', 'store', 'destroy']]);
+    });
+}
+
 if (config('twill.enabled.block-editor')) {
     Route::post('blocks/preview', ['as' => 'blocks.preview', 'uses' => 'BlocksController@preview']);
 }
